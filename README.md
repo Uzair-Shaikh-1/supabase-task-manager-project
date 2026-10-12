@@ -1,75 +1,83 @@
-# React + TypeScript + Vite
+# Supabase Task Manager CRUD
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple Task Manager application built with **React, TypeScript, and Supabase**. This project demonstrates basic CRUD operations, user session integration, and image uploads using Supabase Storage.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Create:** Add tasks with a title, description, and optional image.
+- **Read:** Fetch and display tasks from the Supabase database.
+- **Update:** Edit task descriptions.
+- **Delete:** Remove tasks.
+- **Image Upload:** Upload task images to Supabase Storage.
+- **Database Integration:** Store and manage tasks using Supabase.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- TypeScript
+- Supabase
+- Supabase Storage
+- Vite
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Clone the repository
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+git clone <your-repository-url>
+cd <project-folder>
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
 ```
+
+### 3. Configure environment variables
+
+Create a `.env` file in the project root and add your Supabase project credentials:
+
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+```
+
+Get these values from your Supabase project settings.
+
+**Important:** Never commit your `.env` file or expose your Supabase secret or `service_role` keys.
+
+### 4. Configure Supabase
+
+Before running the application, make sure your Supabase project has:
+
+- A `task tabe` database table with the required columns: `id`, `title`, `description`, `email`, `image_url`, and `created_at`.
+- A Storage bucket named `tasks-images` for uploaded images.
+- Appropriate database permissions and Storage policies.
+
+The `image_url` column should support `NULL` values if tasks can be created without an image.
+
+### 5. Start the development server
+
+```bash
+npm run dev
+```
+
+Open the local URL provided by Vite in your terminal to use the application.
+
+## Environment Variables
+
+| Variable | Description |
+|---|---|
+| `VITE_SUPABASE_URL` | Your Supabase project URL |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Your Supabase publishable key |
+
+## Notes
+
+- You need your own Supabase project and must configure the required database table, Storage bucket, and access policies.
+- The application will not work fully until the Supabase backend is configured correctly.
+- For production use, enable Row Level Security (RLS) and configure policies to protect user data.
+
+## License
+
+This project is available for learning and educational purposes.
